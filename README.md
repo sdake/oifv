@@ -1,2 +1,2 @@
 # oifv
-The OIFV GPU Memory and CPU Virtualization Technology
+OIFV GPU Memory and CPU Virtualization Technology
