@@ -1,6 +1,6 @@
 # Hi there! This is oifv 🔧🔧🔧
 
-OIFV is a GPU memory and compute virtualization solution to increase GPU utilizaiton
+OIFV is a GPU memory and compute virtualization solution to increase GPU utilization
 within the technology industry. OIFV is focused first on virtualizing GPU memory,
 as no other technology solution virtualizes GPU memory.
 
