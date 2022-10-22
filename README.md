@@ -12,4 +12,7 @@ You can read more about how our technology works by joining the
 # Community
 
 Join our [Discord Server](https://discord.gg/3UysVC2M) to meet individuals interested
-in improving GPU utilization by virtualizing GPU memory and compute.
+in improving GPU utilization by virtualizing GPU memory and compute. For more complex
+topics, please consider joining the
+[OIFV Community](https://groups.google.com/a/computelify.ai/g/oifv-community) to
+participate in email discussion.
