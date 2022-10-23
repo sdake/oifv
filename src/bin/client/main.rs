@@ -29,7 +29,7 @@ async fn main() {
         .expect("port must be a valid integer");
 
     let sock_path = format!("/tmp/ch.vsock_{}", listen_port);
-    println!("Socket Path {:#?}\n", sock_path);
+    println!("Socket Path {:#?}", sock_path);
 
     let listener = UnixListener::bind(&sock_path).unwrap();
 
@@ -41,7 +41,7 @@ async fn main() {
 
 async fn handle_connection(mut stream: UnixStream) {
     let mut buffer = [0; 16];
-    stream.read(&mut buffer).await.unwrap();
+    stream.read_exact(&mut buffer).await.unwrap();
 
-    print!("buf {:#?}\n", buffer)
+    println!("buf {:#?}", buffer)
 }
