@@ -1,0 +1,12 @@
+[package]
+name = "oifv"
+version = "0.1.0"
+authors = ["The OIFV Community Authors"]
+license = "LICENSE-APACHE"
+description = "GPU Virtualization Layer for GPU Memory and GPU Compute"
+homepage = "https://github.com/oifv-ai/oifv"
+
+[workspace]
+members = [
+    "oifv-client"
+]
