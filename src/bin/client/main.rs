@@ -2,40 +2,59 @@
 // NVIDIA device driver access into RPC that is then sent to the
 // oifv_server running within the hypervisor
   
-use clap::{Arg, App, crate_authors, crate_version};
+use std::path::PathBuf;
+
+use clap::{Parser, Subcommand};
 use tokio::io::AsyncReadExt;
 use tokio::net::{UnixListener, UnixStream};
 
+#[derive(Parser)]
+#[command(author, version, about, long_about = None)]
+
+struct Cli {
+    /// Optional name to operate on
+    name: Option<String>,
+
+    /// Sets a custom config file
+    #[arg(short, long, value_name = "FILE")]
+    config: Option<PathBuf>,
+
+    /// Turn debugging information on
+    #[arg(short, long, action = clap::ArgAction::Count)]
+    debug: u8,
+
+    #[command(subcommand)]
+    command: Option<Commands>,
+}
+
+#[derive(Subcommand)]
+enum Commands {
+    /// Start the OIFV client
+    Start {
+        /// Listen on unix vsock port
+        #[arg(short, long)]
+        port: u32,
+    },
+}
+
 #[tokio::main]
 async fn main() {
-    let matches = App::new("oifv_server")
-        .version(crate_version!())
-        .author(crate_authors!())
-        .about("The oifv test server")
-        .arg(
-            Arg::with_name("listen")
-                .long("listen")
-                .short("l")
-                .help("Port to listen for Virtio connections")
-                .required(true)
-                .takes_value(true),
-        )
-        .get_matches();
+    let cli = Cli::parse();
 
-    let listen_port = matches
-        .value_of("listen")
-        .expect("port is required")
-        .parse::<u32>()
-        .expect("port must be a valid integer");
+    match &cli.command {
+        Some(Commands::Start { port } ) => {
+            println!("Start OIFV client.");
+            let sock_path = format!("/tmp/ch.vsock_{}", port);
+            println!("Socket Path {:#?}", sock_path);
 
-    let sock_path = format!("/tmp/ch.vsock_{}", listen_port);
-    println!("Socket Path {:#?}", sock_path);
+            let listener = UnixListener::bind(&sock_path).unwrap();
 
-    let listener = UnixListener::bind(&sock_path).unwrap();
-
-    loop {
-        let (stream, _) = listener.accept().await.unwrap();
-        handle_connection(stream).await;
+            loop {
+                let (stream, _) = listener.accept().await.unwrap();
+                handle_connection(stream).await;
+            }
+        }
+        None => {}
     }
 }
 
