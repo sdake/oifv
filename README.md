@@ -7,7 +7,7 @@ as no other technology solution virtualizes GPU memory.
 # Our technology
 
 You can read more about how our technology works by joining the
-[OIFV Google Drive](https://groups.google.com/a/computelify.ai/g/oifv-drive-read).
+[OIFV Google Drive](https://groups.google.com/a/computelify.ai/g/oifv-drive-read/about).
 
 # Community
 
